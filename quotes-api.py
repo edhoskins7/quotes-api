@@ -58,12 +58,11 @@ def get_quote():
         return quote.quote
     elif request.args.get('data').isnumeric():
         quote = Quote.query.filter_by(number=f"{request.args.get('data')}").first()
-        return quote.quote
-        # if not lookup:
-        #     not_found = "Sorry, quote not found."
-        #     return not_found
-        # else:
-        #     return lookup.quote
+        if not quote:
+            not_found = "Sorry, quote not found."
+            return not_found
+        else:
+            return quote.quote
     else:
         lookup = Quote.query.filter(Quote.quote.regexp_match(rf"\b(?i){request.args.get('data')}")).first()
         if not lookup:
