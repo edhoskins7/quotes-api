@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql.expression import func, select
+import psycopg2
 import os
 
 API_KEY = "12345"
