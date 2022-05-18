@@ -57,7 +57,7 @@ def get_quote():
         quote = Quote.query.order_by(func.random()).first()
         return quote.quote
     elif request.args.get('data').isnumeric():
-        quote = Quote.query.filter_by(number=1).first()
+        quote = Quote.query.filter_by(number=f"{request.args.get('data')}").first()
         return quote.quote
         # if not lookup:
         #     not_found = "Sorry, quote not found."
