@@ -64,7 +64,7 @@ def get_quote():
         else:
             return quote.quote
     else:
-        quote = Quote.query.filter(Quote.quote.regexp_match(f"{request.args.get('data')}", '(?i)')).first()
+        quote = Quote.query.filter(Quote.quote.regexp_match(f"{request.args.get('data')}", '^(b|c)')).first()
         return quote.quote
         # if not lookup:
         #     not_found = "Sorry, quote not found."
