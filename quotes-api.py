@@ -35,16 +35,16 @@ def add_quote():
 @app.route("/del-quote", methods=["GET", "DELETE"])
 def del_quote():
     if request.args.get("api_key") == API_KEY:
-        quote_to_delete = Quote.query.filter_by(number=f'{request.args.get("data")}').first()
-        if quote_to_delete:
-            db.session.delete(quote_to_delete)
-            all_quotes = Quote.query.order_by(Quote.number).all()
-            for i in range(len(all_quotes)):
-                all_quotes[i].number = i + 1
-            db.session.commit()
-            return "Quote deleted."
-        else:
-            return "Please use a valid quote number."
+        quote_to_delete = Quote.query.filter_by(number=f"{request.args.get('data')}").first()
+        # if quote_to_delete:
+        db.session.delete(quote_to_delete)
+        all_quotes = Quote.query.order_by(Quote.number).all()
+        for i in range(len(all_quotes)):
+            all_quotes[i].number = i + 1
+        db.session.commit()
+        return "Quote deleted."
+        # else:
+        #     return "Please use a valid quote number."
     else:
         return jsonify(error={"Not Allowed": "Please provide a valid api key."})
 
