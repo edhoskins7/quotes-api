@@ -48,7 +48,7 @@ def del_quote():
 @app.route("/quote", methods=["GET"])
 def get_quote():
     if request.args.get('data') == "list":
-        return "test"
+        return "http://api.litterbox.life/quote/list"
     elif request.args.get('data') == "":
         quote = Quote.query.order_by(func.random()).first()
         return quote.quote
