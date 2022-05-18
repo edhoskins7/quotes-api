@@ -6,7 +6,7 @@ import os
 
 API_KEY = "12345"
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:cf9d48e3a28c78cd16558f87e4ff2a5f@dokku-postgres-quotes-api:5432/quotes_api"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace("postgres://", "postgresql://", 1)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
