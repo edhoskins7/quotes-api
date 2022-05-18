@@ -53,7 +53,7 @@ def del_quote():
 def get_quote():
     if request.args.get('data') == "list":
         return "http://api.litterbox.life/quote/list"
-    elif request.args.get('data') == "":
+    elif request.args.get('data') == " ":
         quote = Quote.query.order_by(func.random()).first()
         return quote.quote
     elif request.args.get('data').isnumeric():
@@ -65,13 +65,12 @@ def get_quote():
             return quote.quote
     else:
         quote = Quote.query.filter(Quote.quote.ilike(f"%{request.args.get('data')}%")).first()
-        return quote.quote
-        # if not lookup:
-        #     not_found = "Sorry, quote not found."
-        #     return not_found
-        # else:
-        #     quote = Quote.query.filter(Quote.quote.regexp_match(rf"\b(?i){request.args.get('data')}")).order_by(func.random()).first()
-        #     return quote.quote
+        if not quote:
+            not_found = "Sorry, quote not found."
+            return not_found
+        else:
+            quote = Quote.query.filter(Quote.quote.ilike(f"%{request.args.get('data')}%")).order_by(func.random()).first()
+            return quote.quote
 
 
 @app.route("/quote/list")
